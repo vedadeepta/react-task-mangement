@@ -7,6 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import DataCell from './DataCell';
+import { AddMemberComponent } from '../Containers/AUDTask';
 
 const styles = theme => ({
   root: {
@@ -26,7 +27,10 @@ function DataTable(props) {
     <Table className={classes.table}>
       <TableHead>
         <TableRow>
-          <TableCell>Members</TableCell>
+          <TableCell>
+            Members
+            <AddMemberComponent />
+          </TableCell>
           <TableCell>Pending</TableCell>
           <TableCell>Progress</TableCell>
           <TableCell>Completed</TableCell>

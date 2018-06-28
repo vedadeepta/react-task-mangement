@@ -3,16 +3,14 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
+import TaskList from './TaskList';
 
 const styles = {
   appBar: {
@@ -27,26 +25,32 @@ function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
-class FullScreenDialog extends React.Component {
+class TaskDetailDialog extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
+      open: false
     };
+    this.handleClickOpen = this.handleClickOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   handleClickOpen() {
     this.setState({ open: true });
-  };
+  }
 
   handleClose() {
     this.setState({ open: false });
-  };
+  }
 
   render() {
     const { classes } = this.props;
     return (
-      <div>
+      <React.Fragment>
+        <div onClick={this.handleClickOpen}>
+          {this.props.children}
+        </div>
         <Dialog
           fullScreen
           open={this.state.open}
@@ -67,22 +71,24 @@ class FullScreenDialog extends React.Component {
             </Toolbar>
           </AppBar>
           <List>
-            <ListItem button>
-              <ListItemText primary="Phone ringtone" secondary="Titania" />
-            </ListItem>
-            <Divider />
-            <ListItem button>
-              <ListItemText primary="Default notification ringtone" secondary="Tethys" />
-            </ListItem>
+            <TaskList
+              tasks={this.props.tasks}
+              row={this.props.row}
+              col={this.props.col}
+            />
           </List>
         </Dialog>
-      </div>
+      </React.Fragment>
     );
   }
 }
 
-FullScreenDialog.propTypes = {
+TaskDetailDialog.propTypes = {
+  tasks: PropTypes.array,
   classes: PropTypes.object.isRequired,
+  children: PropTypes.object.isRequired,
+  row: PropTypes.string.isRequired,
+  col: PropTypes.string.isRequired
 };
 
-export default withStyles(styles)(FullScreenDialog);
+export default withStyles(styles)(TaskDetailDialog);

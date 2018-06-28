@@ -34,3 +34,34 @@ export function addTask(row, col, task) {
     }
   };
 }
+
+export function updateTask(row, col, oldTask, newTask) {
+  return {
+    type: boardConstants.updateTask,
+    payload: {
+      row,
+      col,
+      oldTask,
+      newTask
+    }
+  };
+}
+
+export function deleteTask(row, task) {
+  return {
+    type: boardConstants.deleteTask,
+    payload: {
+      row,
+      task
+    }
+  };
+}
+
+export function addMembers(name) {
+  return {
+    type: boardConstants.addMembers,
+    payload: {
+      name
+    }
+  };
+}

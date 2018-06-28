@@ -2,30 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TableCell from '@material-ui/core/TableCell';
 import ListItem from '@material-ui/core/ListItem';
-import Add from '../Containers/AUDTask';
+import { AddComponent } from '../Containers/AUDTask';
+import TaskDetailDialog from './Tasks/TaskDetailDialog';
 
-
-class DataCell extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: false
-    };
-  }
-
-  render() {
-    const { tasks, type, assigned } = this.props;
-    return (
-      <TableCell style={{ height: 80 }}>
+function DataCell(props) {
+  const { tasks, type, assigned } = props;
+  return (
+    <TableCell style={{ height: 80 }}>
+      <TaskDetailDialog tasks={tasks} row={assigned} col={type}>
         <ListItem button dense style={{ maxWidth: 200 }}>
           <div>
             {tasks.length ? tasks.toString() : 'no task'}
-            <Add row={assigned} col={type} />
+            <AddComponent row={assigned} col={type} />
           </div>
         </ListItem>
-      </TableCell>
-    );
-  }
+      </TaskDetailDialog>
+    </TableCell>
+  );
 }
 
 DataCell.propTypes = {
