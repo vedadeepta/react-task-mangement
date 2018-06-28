@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -9,10 +8,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-/* ACTIONS */
-import { add } from '../../actions/BoardActions';
-
-class AddTask extends React.Component {
+class TaskActionDialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,24 +24,25 @@ class AddTask extends React.Component {
   }
 
   handleClose() {
-    this.props.add(this.props.row, this.props.col, this.state.value);
+    this.props.actionFunction(this.state.value);
     this.setState({ open: false });
   }
 
   render() {
+    const { action, col } = this.props;
     return (
       <div style={{ marginTop: 20 }}>
-        <Button onClick={this.handleClickOpen}>Add Task</Button>
+        <Button onClick={this.handleClickOpen}>{action} Task</Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
           fullWidth
         >
-          <DialogTitle id="form-dialog-title">Add Taak</DialogTitle>
+          <DialogTitle id="form-dialog-title">{action} Task</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Add Task to {this.props.col}
+              {action} Task to {col}
             </DialogContentText>
             <TextField
               autoFocus
@@ -62,7 +59,7 @@ class AddTask extends React.Component {
               Cancel
             </Button>
             <Button onClick={this.handleClose} color="primary">
-              Add
+              {action}
             </Button>
           </DialogActions>
         </Dialog>
@@ -71,18 +68,10 @@ class AddTask extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    add: (row, col, task) => {
-      dispatch(add(row, col, task));
-    }
-  };
+TaskActionDialog.propTypes = {
+  action: PropTypes.string.isRequired,
+  actionFunction: PropTypes.func.isRequired,
+  col: PropTypes.string
 };
 
-AddTask.propTypes = {
-  col: PropTypes.string.isRequired,
-  row: PropTypes.string.isRequired,
-  add: PropTypes.func.isRequired
-};
-
-export default connect(null, mapDispatchToProps)(AddTask);
+export default TaskActionDialog;
