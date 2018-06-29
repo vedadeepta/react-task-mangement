@@ -4,6 +4,7 @@ import {
   fetchSuccess,
   fetchFailure
 } from '../actionCreator/ProjectActionCreator';
+import { setError } from '../actionCreator/ErrorActionCreator';
 
 const fetchProjects = () => (dispatch) => {
   dispatch(projectFetch());
@@ -14,6 +15,7 @@ const fetchProjects = () => (dispatch) => {
     })
     .catch((err) => {
       dispatch(fetchFailure(err));
+      dispatch(setError(err));
     });
 };
 

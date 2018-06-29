@@ -65,3 +65,9 @@ export function addMembers(name) {
     }
   };
 }
+
+export function clearBoard() {
+  return {
+    type: boardConstants.clear
+  };
+}

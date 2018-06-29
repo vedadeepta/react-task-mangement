@@ -6,8 +6,11 @@ import {
   addTask,
   updateTask,
   deleteTask,
-  addMembers
+  addMembers,
+  clearBoard
 } from '../actionCreator/BoardActionCreator';
+
+import { setError } from '../actionCreator/ErrorActionCreator';
 
 const fetchBoards = id => (dispatch) => {
   dispatch(boardFetch());
@@ -17,6 +20,7 @@ const fetchBoards = id => (dispatch) => {
       dispatch(fetchSuccess(res.data.boards));
     })
     .catch((err) => {
+      dispatch(setError(err));
       dispatch(fetchFailure(err));
     });
 };
@@ -37,10 +41,15 @@ const memberAdd = name => (dispatch) => {
   dispatch(addMembers(name));
 };
 
+const boardClear = () => (dispatch) => {
+  dispatch(clearBoard());
+};
+
 export {
   fetchBoards,
   taskAdd,
   taskUpdate,
   taskDelete,
-  memberAdd
+  memberAdd,
+  boardClear
 };

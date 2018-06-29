@@ -17,6 +17,7 @@ class TaskActionDialog extends React.Component {
     };
     this.handleClickOpen = this.handleClickOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
   }
 
   handleClickOpen(e) {
@@ -27,12 +28,19 @@ class TaskActionDialog extends React.Component {
 
   handleClose(e) {
     e.stopPropagation();
+    e.preventDefault();
+    this.setState({ open: false });
+  }
+
+  handleAdd(e) {
+    e.stopPropagation();
+    e.preventDefault();
     this.props.actionFunction(this.state.value);
     this.setState({ open: false });
   }
 
   render() {
-    const { action, msg } = this.props;
+    const { action, msg, label } = this.props;
     return (
       <div style={{ marginTop: 20 }}>
         <Button onClick={this.handleClickOpen}>{action} Task</Button>
@@ -50,8 +58,7 @@ class TaskActionDialog extends React.Component {
             <TextField
               autoFocus
               margin="dense"
-              id="name"
-              label="Task Name"
+              label={label}
               fullWidth
               value={this.state.value}
               onChange={e => this.setState({ value: e.target.value })}
@@ -61,7 +68,7 @@ class TaskActionDialog extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={this.handleAdd} color="primary">
               {action}
             </Button>
           </DialogActions>
@@ -74,7 +81,8 @@ class TaskActionDialog extends React.Component {
 TaskActionDialog.propTypes = {
   action: PropTypes.string.isRequired,
   actionFunction: PropTypes.func.isRequired,
-  msg: PropTypes.string.isRequired
+  msg: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired
 };
 
 export default TaskActionDialog;

@@ -17,6 +17,7 @@ function Add(props) {
     <TaskActionDialog
       action={'Add'}
       msg={`Add task to ${props.col}`}
+      label={'Add task'}
       actionFunction={(value) => {
         props.taskAdd(props.row, props.col, value);
       }}
@@ -29,6 +30,7 @@ function Update(props) {
     <TaskActionDialog
       action={'Update'}
       msg={`Update task ${props.oldTask}`}
+      label={'Update task'}
       actionFunction={(value) => {
         props.taskUpdate(props.row, props.col, props.oldTask, value);
       }}
@@ -41,6 +43,7 @@ function Delete(props) {
     <TaskActionDialog
       action={'Delete'}
       msg={`Are you sure you want to delete ${props.oldTask}`}
+      label={'Delete task'}
       actionFunction={() => {
         props.taskDelete(props.row, props.oldTask);
       }}
@@ -53,6 +56,7 @@ function AddMember(props) {
     <TaskActionDialog
       action={'Add members'}
       msg={'Member name'}
+      label={'Add Member'}
       actionFunction={(value) => {
         props.memberAdd(value);
       }}

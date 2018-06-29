@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
-import Projects from '../Dumb/Projects';
-/* ACTIONS */
+import Projects from '../Dumb/Project/Projects';
 import fetchProjects from '../../actions/ProjectAction';
 
 class ProjectsContainer extends React.Component {
@@ -14,7 +13,7 @@ class ProjectsContainer extends React.Component {
   render() {
     return (
       <div>
-        <Projects projects={this.props.projects} />
+        <Projects {...this.props} />
       </div>
     );
   }
@@ -22,7 +21,8 @@ class ProjectsContainer extends React.Component {
 
 const mapStoreToProps = (store) => {
   return {
-    projects: store.ProjectReducer.projects
+    projects: store.ProjectReducer.projects,
+    isLoading: store.ProjectReducer.isLoading
   };
 };
 
@@ -35,8 +35,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 ProjectsContainer.propTypes = {
-  projects: PropTypes.array,
-  fetchProjects: PropTypes.func.isRequired
+  fetchProjects: PropTypes.func.isRequired,
 };
 
 export default connect(mapStoreToProps, mapDispatchToProps)(ProjectsContainer);

@@ -7,7 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import DataCell from './DataCell';
-import { AddMemberComponent } from '../Containers/AUDTask';
+import { AddMemberComponent } from '../../Containers/AUDTask';
 
 const styles = theme => ({
   root: {

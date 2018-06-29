@@ -3,7 +3,6 @@ import projectConstants from '../constants/ProjectConstants';
 const initalState = {
   projects: [],
   isLoading: false,
-  error: {}
 };
 
 export default function reducer(state = initalState, action) {
@@ -33,7 +32,6 @@ export default function reducer(state = initalState, action) {
         state,
         {
           isLoading: false,
-          error: action.payload.error
         }
       );
     }

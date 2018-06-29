@@ -1,13 +1,8 @@
 import boardConstants from '../constants/BoardConstants';
-import {
-  findAndRemoveTask,
-  ifExist
-} from './reducerUtils';
 
 const intialState = {
   boards: [],
   isLoading: true,
-  error: ''
 };
 
 export default function reducer(state = intialState, action) {
@@ -38,16 +33,22 @@ export default function reducer(state = intialState, action) {
         state,
         {
           isLoading: false,
-          error: action.payload.error
+        }
+      );
+    }
+
+    case boardConstants.clear : {
+      return Object.assign(
+        {},
+        state,
+        {
+          boards: []
         }
       );
     }
 
     case boardConstants.addTask: {
-      const { row, col, task } = action.payload;
-      const filterPerson = state.boards.filter(b => b.assigned === row)[0];
-      const rowIndex = state.boards.findIndex(b => b.assigned === row);
-      const newTaskObj = findAndRemoveTask(filterPerson, task);
+      const { col, task, newTaskObj, rowIndex } = action.payload;
       if (!newTaskObj[col]) {
         newTaskObj[col] = [];
       }
@@ -67,18 +68,7 @@ export default function reducer(state = intialState, action) {
     }
 
     case boardConstants.updateTask: {
-      const { row, col, oldTask, newTask } = action.payload;
-      const filterPerson = state.boards.filter(b => b.assigned === row)[0];
-      const rowIndex = state.boards.findIndex(b => b.assigned === row);
-      if (ifExist(filterPerson, newTask)) {
-        return Object.assign(
-          {},
-          state,
-          {
-            error: `${newTask} already exists`
-          }
-        );
-      }
+      const { col, newTask, oldTask, filterPerson, rowIndex } = action.payload;
       const newTaskArray = filterPerson[col].map((task) => {
         if (task === oldTask) {
           return newTask;
@@ -100,10 +90,7 @@ export default function reducer(state = intialState, action) {
     }
 
     case boardConstants.deleteTask: {
-      const { row, task } = action.payload;
-      const filterPerson = state.boards.filter(b => b.assigned === row)[0];
-      const rowIndex = state.boards.findIndex(b => b.assigned === row);
-      const newTaskObj = findAndRemoveTask(filterPerson, task);
+      const { newTaskObj, rowIndex } = action.payload;
       const newBoard = state.boards
                               .slice(0, rowIndex)
                               .concat(newTaskObj)
@@ -119,16 +106,6 @@ export default function reducer(state = intialState, action) {
 
     case boardConstants.addMembers: {
       const { name } = action.payload;
-      const membersWithSameName = state.boards.filter(b => b.assigned === name);
-      if (membersWithSameName.length) {
-        return Object.assign(
-          {},
-          state,
-          {
-            error: `Member with ${name} already exists`
-          }
-        );
-      }
       const newTaskObj = { assigned: name };
       const newBoard = state.boards
                                 .slice(0, state.boards.length - 1)

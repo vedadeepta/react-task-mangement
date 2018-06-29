@@ -4,17 +4,18 @@ import {
   Route
 } from 'react-router-dom';
 import ProjectsContainer from './components/Containers/ProjectsContainer';
-import ProjectBoard from './components/Containers/ProjectBoard';
+import ProjectBoardContainer from './components/Containers/ProjectBoardContainer';
+import withAuth from './components/HOC/withAuth';
 
 function App() {
   return (
     <Router>
       <React.Fragment>
         <Route exact path="/" component={ProjectsContainer} />
-        <Route path="/projects/:id?" component={ProjectBoard} />
+        <Route path="/projects/:id?" component={ProjectBoardContainer} />
       </React.Fragment>
     </Router>
   );
 }
 
-export default App;
+export default withAuth(App);

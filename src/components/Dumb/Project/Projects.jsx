@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import ListItem from '@material-ui/core/ListItem';
+import withLoader from '../../HOC/withLoader';
 
 const styles = {
   root: {
@@ -17,6 +18,7 @@ const styles = {
     marginLeft: 5,
   },
 };
+
 function Projects(props) {
   if (props.projects) {
     return (
@@ -45,4 +47,4 @@ Projects.propTypes = {
   projects: PropTypes.array
 };
 
-export default Projects;
+export default withLoader(Projects);

@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TableCell from '@material-ui/core/TableCell';
 import ListItem from '@material-ui/core/ListItem';
-import { AddComponent } from '../Containers/AUDTask';
-import TaskDetailDialog from './Tasks/TaskDetailDialog';
+import { AddComponent } from '../../Containers/AUDTask';
+import TaskDetailDialog from '../Tasks/TaskDetailDialog';
 
 function DataCell(props) {
   const { tasks, type, assigned } = props;
