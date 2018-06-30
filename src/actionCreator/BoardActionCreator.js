@@ -24,6 +24,18 @@ export function fetchFailure(err) {
   };
 }
 
+export function mergeTask(targetPerson, sourcePerson, targetCol, sourceCol) {
+  return {
+    type: boardConstants.mergeTask,
+    payload: {
+      targetPerson,
+      sourcePerson,
+      targetCol,
+      sourceCol
+    }
+  };
+}
+
 export function addTask(row, col, task) {
   return {
     type: boardConstants.addTask,

@@ -6,9 +6,6 @@ import Dialog from '@material-ui/core/Dialog';
 import List from '@material-ui/core/List';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import TaskList from './TaskList';
 
@@ -59,14 +56,8 @@ class TaskDetailDialog extends React.Component {
         >
           <AppBar className={classes.appBar}>
             <Toolbar>
-              <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
-                <CloseIcon />
-              </IconButton>
-              <Typography variant="title" color="inherit" className={classes.flex}>
-                Sound
-              </Typography>
               <Button color="inherit" onClick={this.handleClose}>
-                save
+                Close
               </Button>
             </Toolbar>
           </AppBar>

@@ -11,7 +11,7 @@ function TaskList({ tasks, row, col }) {
   return tasks.map(t => (
     <React.Fragment>
       <ListItem>
-        <ListItemText primary={t} secondary="Titania" />
+        <ListItemText primary={t} />
         <UpdateComponent
           row={row}
           col={col}

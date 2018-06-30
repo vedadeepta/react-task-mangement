@@ -23,6 +23,24 @@ const updateTask = store => next => (action) => {
   return next(action);
 };
 
+const mergeTask = store => next => (action) => {
+  if (boardConstants.mergeTask === action.type) {
+    const { targetPerson, sourcePerson } = action.payload;
+    const boards = store.getState().BoardReducer.boards;
+    const filterSource = boards.filter(b => b.assigned === sourcePerson)[0];
+    const sourceIndex = boards.findIndex(b => b.assigned === sourcePerson);
+    const filterTarget = boards.filter(b => b.assigned === targetPerson)[0];
+    const targetIndex = boards.findIndex(b => b.assigned === targetPerson);
+    /* eslint-disable no-param-reassign */
+    action.payload.filterSource = filterSource;
+    action.payload.sourceIndex = sourceIndex;
+    action.payload.filterTarget = filterTarget;
+    action.payload.targetIndex = targetIndex;
+    return next(action);
+  }
+  return next(action);
+};
+
 const addAndDeleteTask = store => next => (action) => {
   if (boardConstants.addTask === action.type || boardConstants.deleteTask === action.type) {
     const { row, task } = action.payload;
@@ -54,5 +72,6 @@ const ifMemberExist = store => next => (action) => {
 export {
   updateTask,
   addAndDeleteTask,
-  ifMemberExist
+  ifMemberExist,
+  mergeTask
 };

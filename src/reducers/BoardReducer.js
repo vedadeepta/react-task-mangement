@@ -47,6 +47,41 @@ export default function reducer(state = intialState, action) {
       );
     }
 
+    case boardConstants.mergeTask: {
+      const {
+        sourceIndex,
+        targetIndex,
+        filterSource,
+        filterTarget,
+        sourceCol,
+        targetCol
+      } = action.payload;
+      /*eslint-disable*/
+      console.log('source', filterSource);
+      console.log('target', filterTarget);
+      const tasks = filterSource[sourceCol];
+      filterSource[sourceCol] = [];
+      if (!filterTarget[targetCol]) {
+        filterTarget[targetCol] = [];
+      }
+      filterTarget[targetCol] = filterTarget[targetCol].concat(tasks);
+
+      const newBoard = state.boards
+                              .slice(0, sourceIndex)
+                              .concat(filterSource)
+                              .concat(state.boards.slice(sourceIndex + 1))
+                              .slice(0, targetIndex)
+                              .concat(filterTarget)
+                              .concat(state.boards.slice(targetIndex + 1));
+      return Object.assign(
+        {},
+        state,
+        {
+          boards: newBoard
+        }
+      );
+    }
+
     case boardConstants.addTask: {
       const { col, task, newTaskObj, rowIndex } = action.payload;
       if (!newTaskObj[col]) {

@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import promise from 'redux-promise-middleware';
 
 import reducer from './reducers';
-import { updateTask, addAndDeleteTask, ifMemberExist } from './middlewares/taskMiddleware';
+import { updateTask, addAndDeleteTask, ifMemberExist, mergeTask } from './middlewares/taskMiddleware';
 
 const middleware = applyMiddleware(
   promise(),
@@ -12,6 +12,7 @@ const middleware = applyMiddleware(
   updateTask,
   addAndDeleteTask,
   ifMemberExist,
+  mergeTask,
   logger()
 );
 
