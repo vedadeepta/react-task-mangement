@@ -1,6 +1,7 @@
 const loginConstants = {
   login: 'LOGIN',
-  logout: 'LOGOUT'
+  logout: 'LOGOUT',
+  loginInit: 'LOGIN_INITIATED'
 };
 
 export default loginConstants;

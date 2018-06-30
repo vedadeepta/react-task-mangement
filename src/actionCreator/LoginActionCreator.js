@@ -1,5 +1,11 @@
 import loginConstants from '../constants/LoginConstants';
 
+export function loginInit() {
+  return {
+    type: loginConstants.loginInit
+  };
+}
+
 export function login() {
   return {
     type: loginConstants.login

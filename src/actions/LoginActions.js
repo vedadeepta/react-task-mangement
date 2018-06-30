@@ -1,11 +1,13 @@
 import {
   login,
-  logout
+  logout,
+  loginInit
 } from '../actionCreator/LoginActionCreator';
 import { setError } from '../actionCreator/ErrorActionCreator';
 import { loginApi, checkIfLoggedApi, logoutApi } from '../api/LoginApi';
 
 const doLogin = () => (dispatch) => {
+  dispatch(loginInit());
   loginApi()
     .then(() => dispatch(login()))
     .catch(err => dispatch(setError(err)));
