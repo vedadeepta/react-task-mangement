@@ -40,10 +40,14 @@ class TaskActionDialog extends React.Component {
   }
 
   render() {
-    const { action, msg, label } = this.props;
+    const { action, msg, label, tasks } = this.props;
     return (
       <div onClick={e => e.stopPropagation()}>
-        <Button onClick={this.handleClickOpen}>{action}</Button>
+        {
+          (label === 'Delete Card' && !tasks.length) ?
+            null :
+            <Button onClick={this.handleClickOpen}>{action}</Button>
+        }
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -55,14 +59,17 @@ class TaskActionDialog extends React.Component {
             <DialogContentText>
               {msg}
             </DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              label={label}
-              fullWidth
-              value={this.state.value}
-              onChange={e => this.setState({ value: e.target.value })}
-            />
+            {
+              (!label.toLowerCase().includes('delete')) &&
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  label={label}
+                  fullWidth
+                  value={this.state.value}
+                  onChange={e => this.setState({ value: e.target.value })}
+                />
+            }
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
@@ -82,7 +89,8 @@ TaskActionDialog.propTypes = {
   action: PropTypes.string.isRequired,
   actionFunction: PropTypes.func.isRequired,
   msg: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired
+  label: PropTypes.string.isRequired,
+  tasks: PropTypes.array
 };
 
 export default TaskActionDialog;

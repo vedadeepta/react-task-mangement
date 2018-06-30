@@ -18,7 +18,7 @@ function DataCell(props) {
               {tasks.length ? tasks.toString() : 'no task'}
               <div>
                 <AddComponent row={assigned} col={type} />
-                <DeleteCardComponent row={assigned} col={type} />
+                <DeleteCardComponent row={assigned} col={type} tasks={tasks} />
               </div>
             </ListItem>
           </Tooltip>

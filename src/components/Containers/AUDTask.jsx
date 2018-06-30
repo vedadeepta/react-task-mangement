@@ -71,6 +71,7 @@ function DeleteCard(props) {
       action={'Delete'}
       msg={'Are you sure you want to delete this card'}
       label={'Delete Card'}
+      tasks={props.tasks}
       actionFunction={() => {
         props.cardDelete(props.row, props.col);
       }}
@@ -120,6 +121,7 @@ Delete.propTypes = {
 DeleteCard.propTypes = {
   row: PropTypes.string.isRequired,
   col: PropTypes.string.isRequired,
+  tasks: PropTypes.array.isRequired,
   cardDelete: PropTypes.func.isRequired
 };
 
