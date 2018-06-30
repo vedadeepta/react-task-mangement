@@ -7,7 +7,8 @@ const boardConstants = {
   updateTask: 'UPDATE_TASK',
   deleteTask: 'DELETE_TASK',
   addMembers: 'ADD_MEMBERS',
-  clear: 'CLEAR_BOARD'
+  clear: 'CLEAR_BOARD',
+  deleteCard: 'DELETE_CARD'
 };
 
 export default boardConstants;

@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import Projects from '../Dumb/Project/Projects';
+import MaterialAppBar from '../Dumb/MaterialAppBar';
+
+/* ACTIONS */
 import fetchProjects from '../../actions/ProjectAction';
 
 class ProjectsContainer extends React.Component {
@@ -12,9 +15,10 @@ class ProjectsContainer extends React.Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
+        <MaterialAppBar title={'Your projects'} />
         <Projects {...this.props} />
-      </div>
+      </React.Fragment>
     );
   }
 }

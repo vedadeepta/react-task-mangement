@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TableCell from '@material-ui/core/TableCell';
 import ListItem from '@material-ui/core/ListItem';
-import { AddComponent } from '../../Containers/AUDTask';
+import Tooltip from '@material-ui/core/Tooltip';
+import { AddComponent, DeleteCardComponent } from '../../Containers/AUDTask';
 import TaskDetailDialog from '../Tasks/TaskDetailDialog';
 import DraggableContainer from '../../Containers/DraggableContainer';
 
@@ -10,14 +11,19 @@ function DataCell(props) {
   const { tasks, type, assigned } = props;
   return (
     <TableCell style={{ height: 80 }}>
-      <DraggableContainer targetPerson={assigned} targetCol={type}>
-        <TaskDetailDialog row={assigned} col={type} tasks={tasks}>
-          <ListItem button dense style={{ maxWidth: 200 }}>
-            {tasks.length ? tasks.toString() : 'no task'}
-            <AddComponent row={assigned} col={type} />
-          </ListItem>
-        </TaskDetailDialog>
-      </DraggableContainer>
+      <TaskDetailDialog row={assigned} col={type} tasks={tasks}>
+        <DraggableContainer targetPerson={assigned} targetCol={type}>
+          <Tooltip title={'Click to update or drag to any list'}>
+            <ListItem button dense style={{ maxWidth: 200 }}>
+              {tasks.length ? tasks.toString() : 'no task'}
+              <div>
+                <AddComponent row={assigned} col={type} />
+                <DeleteCardComponent row={assigned} col={type} />
+              </div>
+            </ListItem>
+          </Tooltip>
+        </DraggableContainer>
+      </TaskDetailDialog>
     </TableCell>
   );
 }

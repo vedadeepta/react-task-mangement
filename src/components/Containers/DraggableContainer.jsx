@@ -8,13 +8,9 @@ import { taskMerge } from '../../actions/BoardActions';
 function DraggableContainer(props) {
   function handleDrop(e) {
     e.preventDefault();
-    /*eslint-disable*/
-    console.log("drop");
     const { sourcePerson, sourceCol } = JSON.parse(e.dataTransfer.getData('text'));
-    console.log("source", sourcePerson, sourceCol);
     const { targetPerson, targetCol } = props;
     props.taskMerge(targetPerson, sourcePerson, targetCol, sourceCol);
-    /*eslint-enable*/
   }
   function handleDragStart(e) {
     const dataobj = {

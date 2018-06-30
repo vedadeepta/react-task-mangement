@@ -2,8 +2,8 @@ import boardConstants from '../constants/BoardConstants';
 import { fetchFailure } from '../actionCreator/BoardActionCreator';
 import {
   ifExist,
-  findAndRemoveTask
-} from '../reducers/reducerUtils';
+  findAndRemoveTask,
+} from './utils';
 
 const updateTask = store => next => (action) => {
   if (boardConstants.updateTask === action.type) {

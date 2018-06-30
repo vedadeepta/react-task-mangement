@@ -27,5 +27,5 @@ function ifExist(obj, task) {
 
 export {
   findAndRemoveTask,
-  ifExist
+  ifExist,
 };

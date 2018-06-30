@@ -1,49 +1,62 @@
 import React from 'react';
-import firebase from 'firebase';
-import config from '../../config';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Login from '../Dumb/Login';
 import LinearIndeterminate from '../Dumb/Progress/LinearIndeterminate';
 
-firebase.initializeApp(config);
+/* ACTIONS */
+import { doLogin, ifLogged } from '../../actions/LoginActions';
 
 function withAuth(Wrapped) {
-  return class LoginHOC extends React.Component {
+  class LoginHOC extends React.Component {
 
-    constructor() {
-      super();
-      this.state = {
-        logged: null,
-        error: ''
-      };
+    constructor(props) {
+      super(props);
       this.login = this.login.bind(this);
     }
 
     componentDidMount() {
-      firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          this.setState({ logged: true });
-        } else {
-          this.setState({ logged: false });
-        }
-      });
+      this.props.ifLogged();
     }
 
     login() {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithPopup(provider)
-                      .then(() => this.setState({ logged: true }))
-                      .catch(error => this.setState({ logged: false, error }));
+      this.props.doLogin();
     }
 
     render() {
-      if (this.state.logged === null) {
+      if (this.props.logged === null) {
         return <LinearIndeterminate />;
-      } else if (this.state.logged) {
+      } else if (this.props.logged) {
         return <Wrapped />;
       }
       return <Login login={this.login} />;
     }
+  }
+
+  const mapStateToProps = (store) => {
+    return {
+      logged: store.LoginReducer.logged
+    };
   };
+
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      doLogin: () => {
+        dispatch(doLogin());
+      },
+      ifLogged: () => {
+        dispatch(ifLogged());
+      }
+    };
+  };
+
+  LoginHOC.propTypes = {
+    doLogin: PropTypes.func.isRequired,
+    ifLogged: PropTypes.func.isRequired,
+    logged: PropTypes.bool
+  };
+
+  return connect(mapStateToProps, mapDispatchToProps)(LoginHOC);
 }
 
 export default withAuth;

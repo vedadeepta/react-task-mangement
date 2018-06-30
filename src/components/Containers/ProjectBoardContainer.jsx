@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ProjectBoard from '../Dumb/Project/ProjectBoard';
+import MaterialAppBar from '../Dumb/MaterialAppBar';
 /* ACTIONS*/
 import { fetchBoards, boardClear } from '../../actions/BoardActions';
 
@@ -16,6 +17,7 @@ class ProjectBoardContainer extends React.Component {
   render() {
     return (
       <React.Fragment>
+        <MaterialAppBar title={this.props.location.pathname.split('/')[2]} />
         <ProjectBoard {...this.props} />
       </React.Fragment>
     );

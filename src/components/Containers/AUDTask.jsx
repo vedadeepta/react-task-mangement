@@ -8,7 +8,8 @@ import {
   taskAdd,
   taskUpdate,
   taskDelete,
-  memberAdd
+  memberAdd,
+  cardDelete
 } from '../../actions/BoardActions';
 
 
@@ -64,6 +65,19 @@ function AddMember(props) {
   );
 }
 
+function DeleteCard(props) {
+  return (
+    <TaskActionDialog
+      action={'Delete'}
+      msg={'Are you sure you want to delete this card'}
+      label={'Delete Card'}
+      actionFunction={() => {
+        props.cardDelete(props.row, props.col);
+      }}
+    />
+  );
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
     taskAdd: (row, col, task) => {
@@ -77,6 +91,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     memberAdd: (value) => {
       dispatch(memberAdd(value));
+    },
+    cardDelete: (row, col) => {
+      dispatch(cardDelete(row, col));
     }
   };
 };
@@ -100,6 +117,12 @@ Delete.propTypes = {
   taskDelete: PropTypes.func.isRequired,
 };
 
+DeleteCard.propTypes = {
+  row: PropTypes.string.isRequired,
+  col: PropTypes.string.isRequired,
+  cardDelete: PropTypes.func.isRequired
+};
+
 AddMember.propTypes = {
   memberAdd: PropTypes.func.isRequired
 };
@@ -107,11 +130,13 @@ AddMember.propTypes = {
 const AddComponent = connect(null, mapDispatchToProps)(Add);
 const UpdateComponent = connect(null, mapDispatchToProps)(Update);
 const DeleteComponent = connect(null, mapDispatchToProps)(Delete);
+const DeleteCardComponent = connect(null, mapDispatchToProps)(DeleteCard);
 const AddMemberComponent = connect(null, mapDispatchToProps)(AddMember);
 
 export {
   AddComponent,
   UpdateComponent,
   DeleteComponent,
-  AddMemberComponent
+  AddMemberComponent,
+  DeleteCardComponent
 };

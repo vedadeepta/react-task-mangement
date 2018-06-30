@@ -13,7 +13,7 @@
     "bootstrap": "^3.3.7",
     "firebase": "^5.2.0",
     "path": "^0.12.7",
-    "prop-types": "^16.4.1",
+    "prop-types": "15.6.2",
     "query-string": "^6.0.0",
     "react": "^16.4.1",
     "react-d3-components": "^0.9.1",

@@ -8,7 +8,8 @@ import {
   deleteTask,
   addMembers,
   clearBoard,
-  mergeTask
+  mergeTask,
+  deleteCard
 } from '../actionCreator/BoardActionCreator';
 
 import { setError } from '../actionCreator/ErrorActionCreator';
@@ -46,6 +47,10 @@ const memberAdd = name => (dispatch) => {
   dispatch(addMembers(name));
 };
 
+const cardDelete = (row, col) => (dispatch) => {
+  dispatch(deleteCard(row, col));
+};
+
 const boardClear = () => (dispatch) => {
   dispatch(clearBoard());
 };
@@ -57,5 +62,6 @@ export {
   taskDelete,
   memberAdd,
   boardClear,
-  taskMerge
+  taskMerge,
+  cardDelete
 };

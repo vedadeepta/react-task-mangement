@@ -42,8 +42,8 @@ class TaskActionDialog extends React.Component {
   render() {
     const { action, msg, label } = this.props;
     return (
-      <div style={{ marginTop: 20 }}>
-        <Button onClick={this.handleClickOpen}>{action} Task</Button>
+      <div onClick={e => e.stopPropagation()}>
+        <Button onClick={this.handleClickOpen}>{action}</Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}

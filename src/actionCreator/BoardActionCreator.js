@@ -78,6 +78,16 @@ export function addMembers(name) {
   };
 }
 
+export function deleteCard(row, col) {
+  return {
+    type: boardConstants.deleteCard,
+    payload: {
+      row,
+      col
+    }
+  };
+}
+
 export function clearBoard() {
   return {
     type: boardConstants.clear

@@ -6,6 +6,13 @@ const intialState = {
 };
 
 export default function reducer(state = intialState, action) {
+  function getNewBoard(boards, index, mutation) {
+    return boards
+            .slice(0, index)
+            .concat(mutation)
+            .concat(state.boards.slice(index + 1));
+  }
+
   switch (action.type) {
     case boardConstants.fetch: {
       return Object.assign(
@@ -47,6 +54,21 @@ export default function reducer(state = intialState, action) {
       );
     }
 
+    case boardConstants.deleteCard: {
+      const { row, col } = action.payload;
+      const filterPerson = state.boards.filter(b => b.assigned === row)[0];
+      const rowIndex = state.boards.findIndex(b => b.assigned === row);
+      filterPerson[col] = [];
+      const newBoard = getNewBoard(state.boards, rowIndex, filterPerson);
+      return Object.assign(
+        {},
+        state,
+        {
+          boards: newBoard
+        }
+      );
+    }
+
     case boardConstants.mergeTask: {
       const {
         sourceIndex,
@@ -56,9 +78,7 @@ export default function reducer(state = intialState, action) {
         sourceCol,
         targetCol
       } = action.payload;
-      /*eslint-disable*/
-      console.log('source', filterSource);
-      console.log('target', filterTarget);
+
       const tasks = filterSource[sourceCol];
       filterSource[sourceCol] = [];
       if (!filterTarget[targetCol]) {
@@ -66,13 +86,11 @@ export default function reducer(state = intialState, action) {
       }
       filterTarget[targetCol] = filterTarget[targetCol].concat(tasks);
 
-      const newBoard = state.boards
-                              .slice(0, sourceIndex)
-                              .concat(filterSource)
-                              .concat(state.boards.slice(sourceIndex + 1))
-                              .slice(0, targetIndex)
-                              .concat(filterTarget)
-                              .concat(state.boards.slice(targetIndex + 1));
+      const newBoard = getNewBoard(
+                        getNewBoard(state.boards, sourceIndex, filterSource),
+                        targetIndex,
+                        filterTarget);
+
       return Object.assign(
         {},
         state,
@@ -88,10 +106,7 @@ export default function reducer(state = intialState, action) {
         newTaskObj[col] = [];
       }
       newTaskObj[col].push(task);
-      const newBoard = state.boards
-                              .slice(0, rowIndex)
-                              .concat(newTaskObj)
-                              .concat(state.boards.slice(rowIndex + 1));
+      const newBoard = getNewBoard(state.boards, rowIndex, newTaskObj);
 
       return Object.assign(
         {},
@@ -111,10 +126,8 @@ export default function reducer(state = intialState, action) {
         return task;
       });
       filterPerson[col] = newTaskArray;
-      const newBoard = state.boards
-                              .slice(0, rowIndex)
-                              .concat(filterPerson)
-                              .concat(state.boards.slice(rowIndex + 1));
+      const newBoard = getNewBoard(state.boards, rowIndex, filterPerson);
+
       return Object.assign(
         {},
         state,
@@ -126,10 +139,7 @@ export default function reducer(state = intialState, action) {
 
     case boardConstants.deleteTask: {
       const { newTaskObj, rowIndex } = action.payload;
-      const newBoard = state.boards
-                              .slice(0, rowIndex)
-                              .concat(newTaskObj)
-                              .concat(state.boards.slice(rowIndex + 1));
+      const newBoard = getNewBoard(state.boards, rowIndex, newTaskObj);
       return Object.assign(
         {},
         state,
